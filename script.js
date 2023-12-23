@@ -5,6 +5,13 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 console.log(ctx);
 
+// clear the canvas button
+const clearBtn = document.getElementById("clearBtn");
+clearBtn.addEventListener("click", () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particleArray.length = 0;
+});
+
 function getRandomFloat(min, max) {
     return Math.random() * (max - min) + min;
 }
