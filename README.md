@@ -2,6 +2,8 @@
 
 A particle system implemented with gravity and mouse repulsion.
 
+[Try it here](https://canvas-gravity-and-repulsion.netlify.app/)
+
 ## Features
 
 -   Particles move dynamically with random initial positions, sizes, and velocities.
