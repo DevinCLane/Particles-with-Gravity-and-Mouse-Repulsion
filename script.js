@@ -65,10 +65,22 @@ class Particle {
         // collision detection
         if (this.x + this.size > canvas.width || this.x - this.size <= 0) {
             this.speedX *= -1;
+
+            // ensure particle is within the canvas after bouncing
+            this.x =
+                this.x + this.size > canvas.width
+                    ? canvas.width - this.size
+                    : this.size;
         }
 
         if (this.y + this.size > canvas.height || this.y - this.size <= 0) {
             this.speedY *= -1;
+
+            // ensure particle is within canvas after bouncing
+            this.y =
+                this.y + this.size > canvas.height
+                    ? canvas.height - this.size
+                    : this.size;
         }
 
         // shrink particles if they're above a certain size
@@ -105,9 +117,6 @@ function handleParticles() {
     for (let i = 0; i < particleArray.length; i++) {
         particleArray[i].update();
         particleArray[i].draw();
-
-        // gravity updates
-        particleArray[i].speedY += particleArray[i].gravity;
 
         // dampening factor
         particleArray[i].speedX *= particleArray[i].damping;
