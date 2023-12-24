@@ -55,3 +55,23 @@ footer {
 #clearBtn:active {
     background: linear-gradient(180deg, #4b65f7 0%, #3646f6 100%);
 }
+
+.mobile-header {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 4px;
+        font-size: small;
+    }
+
+    .desktop-header {
+        display: none;
+    }
+
+    .mobile-header {
+        display: block;
+        padding: 0px 10px;
+    }
+}

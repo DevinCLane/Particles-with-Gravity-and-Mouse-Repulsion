@@ -41,7 +41,7 @@ mobile event listeners
 
 */
 let touchStartTime,
-    touchHoldDuration = 1000,
+    touchHoldDuration = 2000,
     isTouchHold = false;
 
 canvas.addEventListener("touchstart", (event) => {
