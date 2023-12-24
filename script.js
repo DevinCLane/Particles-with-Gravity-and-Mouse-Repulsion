@@ -24,6 +24,64 @@ initCanvas();
 
 window.addEventListener("resize", initCanvas());
 
+canvas.addEventListener("click", ({ x, y }) => {
+    mouse.x = x;
+    mouse.y = y;
+    initParticles(20);
+});
+
+canvas.addEventListener("mousemove", ({ x, y }) => {
+    mouse.x = x;
+    mouse.y = y;
+});
+
+/* 
+
+mobile event listeners
+
+*/
+let touchStartTime,
+    touchHoldDuration = 1000,
+    isTouchHold = false;
+
+canvas.addEventListener("touchstart", (event) => {
+    const touch = event.touches[0];
+    mouse.x = touch.clientX;
+    mouse.y = touch.clientY;
+
+    // record the start time of the touch
+    touchStartTime = Date.now();
+
+    // detect if this is a touch hold (we're not going to make particles if the user is holding down on their touch screen)
+    setTimeout(() => {
+        // if the touch continues after the time out, it's a touch hold
+        if (event.touches.length > 0) {
+            isTouchHold = true;
+        }
+    }, touchHoldDuration);
+
+    // prevent default behavior to avoid unwanted interactions
+    event.preventDefault();
+});
+
+canvas.addEventListener("touchmove", (event) => {
+    const touch = event.touches[0];
+    mouse.x = touch.clientX;
+    mouse.y = touch.clientY;
+
+    event.preventDefault();
+});
+
+canvas.addEventListener("touchend", () => {
+    // if the touch duration is less than the threshold, create particles
+    if (!isTouchHold && Date.now() - touchStartTime < touchHoldDuration) {
+        initParticles(20);
+    }
+
+    // reset the isTouchHold flag
+    isTouchHold = false;
+});
+
 const mouse = {
     x: undefined,
     y: undefined,
@@ -84,7 +142,7 @@ class Particle {
         }
 
         // shrink particles if they're above a certain size
-        if (this.size > 0.2) this.size -= 0.01;
+        if (this.size > 0.2) this.size -= 0.04;
 
         // repulsion force
         const { directionX, directionY, distance } =
@@ -153,17 +211,6 @@ function handleParticles() {
         }
     }
 }
-
-canvas.addEventListener("click", ({ x, y }) => {
-    mouse.x = x;
-    mouse.y = y;
-    initParticles(20);
-});
-
-canvas.addEventListener("mousemove", ({ x, y }) => {
-    mouse.x = x;
-    mouse.y = y;
-});
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
