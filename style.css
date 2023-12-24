@@ -60,10 +60,22 @@ footer {
     display: none;
 }
 
+.mobile-h1 {
+    display: none;
+}
+
 @media only screen and (max-width: 600px) {
     body {
         padding: 4px;
         font-size: small;
+    }
+
+    .desktop-h1 {
+        display: none;
+    }
+
+    .mobile-h1 {
+        display: block;
     }
 
     .desktop-header {
